@@ -1,6 +1,6 @@
 export class Cpf {
   constructor(readonly value: string) {
-    if (!this.validate(value)) throw new Error('Invalid CPF');
+    if (!this.validate(value)) throw new Error("Invalid CPF");
   }
 
   private validate(cpf: string) {
@@ -16,7 +16,7 @@ export class Cpf {
   }
 
   private cleanCpf(cpf: string) {
-    return cpf.replace(/\D/g, '');
+    return cpf.replace(/\D/g, "");
   }
 
   private isValidLength(cpf: string) {
@@ -25,7 +25,7 @@ export class Cpf {
 
   private hasAllDigitsEqual(cpf: string) {
     const [firstDigit] = cpf;
-    return cpf.split('').every((digit) => digit === firstDigit);
+    return cpf.split("").every((digit) => digit === firstDigit);
   }
 
   private calculateDigit(cpf: string, factor: number) {

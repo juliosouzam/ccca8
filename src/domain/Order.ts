@@ -1,7 +1,7 @@
-import { Coupon } from './Coupon';
-import { Cpf } from './Cpf';
-import { Item } from './Item';
-import { OrderItem } from './OrderItem';
+import { Coupon } from "./Coupon";
+import { Cpf } from "./Cpf";
+import { Item } from "./Item";
+import { OrderItem } from "./OrderItem";
 
 export class Order {
   cpf: Cpf;
