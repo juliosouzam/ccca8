@@ -1,5 +1,5 @@
-import { Item } from './domain/Item';
-import { ItemRepository } from './ItemRepository';
+import { Item } from "../../../domain/entities/Item";
+import { ItemRepository } from "../../../domain/repositories/ItemRepository";
 
 export class ItemRepositoryMemory implements ItemRepository {
   private items: Item[];
@@ -10,7 +10,7 @@ export class ItemRepositoryMemory implements ItemRepository {
 
   async getItem(idItem: number): Promise<Item> {
     const item = this.items.find((item) => item.id === idItem);
-    if (!item) throw new Error('Item não encontrado');
+    if (!item) throw new Error("Item não encontrado");
     return item;
   }
 

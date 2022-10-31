@@ -1,5 +1,5 @@
-import { Order } from '../domain/Order';
-import { ItemRepository } from '../ItemRepository';
+import { Order } from "../domain/entities/Order";
+import { ItemRepository } from "../domain/repositories/ItemRepository";
 
 export class Preview {
   constructor(readonly itemRepository: ItemRepository) {}
@@ -10,7 +10,6 @@ export class Preview {
       const item = await this.itemRepository.getItem(orderItem.idItem);
       order.addItem(item, orderItem.quantity);
     }
-
     return order.getTotal();
   }
 }

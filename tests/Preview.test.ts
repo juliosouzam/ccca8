@@ -1,16 +1,15 @@
-import { Preview } from '../src/application/Preview';
-import { Item } from '../src/domain/Item';
-import { ItemRepository } from '../src/ItemRepository';
-import { ItemRepositoryMemory } from '../src/ItemRepositoryMemory';
+import { Preview } from "../src/application/Preview";
+import { Item } from "../src/domain/entities/Item";
+import { ItemRepositoryMemory } from "../src/infra/repositories/memory/ItemRepositoryMemory";
 
-test('Deve simular um pedido', async () => {
+test("Deve simular um pedido", async () => {
   const itemRepository = new ItemRepositoryMemory();
-  await itemRepository.save(new Item(1, 'Camiseta', 50));
-  await itemRepository.save(new Item(2, 'Caneca', 15));
-  await itemRepository.save(new Item(3, 'Poster', 30));
+  await itemRepository.save(new Item(1, "Camiseta", 50));
+  await itemRepository.save(new Item(2, "Caneca", 15));
+  await itemRepository.save(new Item(3, "Poster", 30));
   const preview = new Preview(itemRepository);
   const input = {
-    cpf: '152.423.120-76',
+    cpf: "152.423.120-76",
     orderItems: [
       {
         idItem: 1,

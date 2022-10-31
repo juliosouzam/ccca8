@@ -1,9 +1,9 @@
 import { Checkout } from "../src/application/Checkout";
 import { GetOrdersByCpf } from "../src/application/GetOrdersByCpf";
 import { Preview } from "../src/application/Preview";
-import { Item } from "../src/domain/Item";
-import { ItemRepositoryMemory } from "../src/ItemRepositoryMemory";
-import { OrderRepositoryMemory } from "../src/OrderRepositoryMemory";
+import { Item } from "../src/domain/entities/Item";
+import { ItemRepositoryMemory } from "../src/infra/repositories/memory/ItemRepositoryMemory";
+import { OrderRepositoryMemory } from "../src/infra/repositories/memory/OrderRepositoryMemory";
 
 test("Deve fazer um pedido", async () => {
   const itemRepository = new ItemRepositoryMemory();

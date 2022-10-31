@@ -1,6 +1,6 @@
-import { Order } from '../domain/Order';
-import { ItemRepository } from '../ItemRepository';
-import { OrderRepository } from '../OrderRepository';
+import { Order } from "../domain/entities/Order";
+import { ItemRepository } from "../domain/repositories/ItemRepository";
+import { OrderRepository } from "../domain/repositories/OrderRepository";
 
 export class Checkout {
   constructor(
