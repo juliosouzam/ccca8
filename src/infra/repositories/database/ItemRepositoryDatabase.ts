@@ -1,3 +1,4 @@
+import { Dimension } from "../../../domain/entities/Dimension";
 import { Item } from "../../../domain/entities/Item";
 import { ItemRepository } from "../../../domain/repositories/ItemRepository";
 import { Connection } from "../../database/Connection";
@@ -13,7 +14,13 @@ export class ItemRepositoryDatabase implements ItemRepository {
     return new Item(
       itemData.id,
       itemData.description,
-      parseFloat(itemData.price)
+      parseFloat(itemData.price),
+      new Dimension(
+        itemData.width,
+        itemData.height,
+        itemData.length,
+        itemData.weight
+      )
     );
   }
 
