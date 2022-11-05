@@ -1,7 +1,7 @@
-import { SimulateFreight } from "../src/application/SimulateFreight";
-import { Dimension } from "../src/domain/entities/Dimension";
-import { Item } from "../src/domain/entities/Item";
-import { ItemRepositoryMemory } from "../src/infra/repositories/memory/ItemRepositoryMemory";
+import { SimulateFreight } from "../../src/application/SimulateFreight";
+import { Dimension } from "../../src/domain/entities/Dimension";
+import { Item } from "../../src/domain/entities/Item";
+import { ItemRepositoryMemory } from "../../src/infra/repositories/memory/ItemRepositoryMemory";
 
 test("Deve simular o frete", async () => {
   const itemRepository = new ItemRepositoryMemory();

@@ -1,8 +1,8 @@
-import { Preview } from "../src/application/Preview";
-import { Coupon } from "../src/domain/entities/Coupon";
-import { Item } from "../src/domain/entities/Item";
-import { CouponRepositoryMemory } from "../src/infra/repositories/memory/CouponRepositoryMemory";
-import { ItemRepositoryMemory } from "../src/infra/repositories/memory/ItemRepositoryMemory";
+import { Preview } from "../../src/application/Preview";
+import { Coupon } from "../../src/domain/entities/Coupon";
+import { Item } from "../../src/domain/entities/Item";
+import { CouponRepositoryMemory } from "../../src/infra/repositories/memory/CouponRepositoryMemory";
+import { ItemRepositoryMemory } from "../../src/infra/repositories/memory/ItemRepositoryMemory";
 
 test("Deve simular um pedido", async () => {
   const itemRepository = new ItemRepositoryMemory();

@@ -1,4 +1,4 @@
-import { OrderItem } from "../src/domain/entities/OrderItem";
+import { OrderItem } from "../../src/domain/entities/OrderItem";
 
 test("Deve criar um item do pedido", () => {
   const orderItem = new OrderItem(1, 10, 2);

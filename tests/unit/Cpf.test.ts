@@ -1,4 +1,4 @@
-import { Cpf } from "../src/domain/entities/Cpf";
+import { Cpf } from "../../src/domain/entities/Cpf";
 
 const validCpfs = ["152.423.120-76", "789.093.640-09", "026.459.590-40"];
 test.each(validCpfs)(

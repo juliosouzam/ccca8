@@ -5,8 +5,6 @@ export class Dimension {
     readonly length: number,
     readonly weight: number
   ) {
-    if (!width || !height || !length || !weight)
-      throw new Error("Invalid dimension");
     if (width <= 0 || height <= 0 || length <= 0 || weight <= 0)
       throw new Error("Invalid dimension");
   }

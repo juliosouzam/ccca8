@@ -1,6 +1,6 @@
-import { Dimension } from "../src/domain/entities/Dimension";
-import { FreightCalculator } from "../src/domain/entities/FreightCalculator";
-import { Item } from "../src/domain/entities/Item";
+import { Dimension } from "../../src/domain/entities/Dimension";
+import { FreightCalculator } from "../../src/domain/entities/FreightCalculator";
+import { Item } from "../../src/domain/entities/Item";
 
 test("Deve calcular o frete", () => {
   const item = new Item(1, "Camiseta", 50, new Dimension(100, 30, 10, 3));

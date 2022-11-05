@@ -1,12 +1,12 @@
-import { Checkout } from "../src/application/Checkout";
-import { GetOrdersByCpf } from "../src/application/GetOrdersByCpf";
-import { Coupon } from "../src/domain/entities/Coupon";
-import { Dimension } from "../src/domain/entities/Dimension";
-import { Item } from "../src/domain/entities/Item";
-import { CouponRepository } from "../src/domain/repositories/CouponRepository";
-import { ItemRepository } from "../src/domain/repositories/ItemRepository";
-import { OrderRepository } from "../src/domain/repositories/OrderRepository";
-import { MemoryRepositoryFactory } from "../src/infra/factory/MemoryRepositoryFactory";
+import { Checkout } from "../../src/application/Checkout";
+import { GetOrdersByCpf } from "../../src/application/GetOrdersByCpf";
+import { Coupon } from "../../src/domain/entities/Coupon";
+import { Dimension } from "../../src/domain/entities/Dimension";
+import { Item } from "../../src/domain/entities/Item";
+import { CouponRepository } from "../../src/domain/repositories/CouponRepository";
+import { ItemRepository } from "../../src/domain/repositories/ItemRepository";
+import { OrderRepository } from "../../src/domain/repositories/OrderRepository";
+import { MemoryRepositoryFactory } from "../../src/infra/factory/MemoryRepositoryFactory";
 
 let repositoryFactory: MemoryRepositoryFactory;
 let itemRepository: ItemRepository;
