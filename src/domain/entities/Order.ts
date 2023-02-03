@@ -7,9 +7,9 @@ import { OrderItem } from "./OrderItem";
 
 export class Order {
   cpf: Cpf;
+  freight = 0;
   private orderItems: OrderItem[];
   private coupon?: Coupon;
-  private freight = 0;
   private code: OrderCode;
 
   constructor(
@@ -24,10 +24,10 @@ export class Order {
 
   addItem(item: Item, quantity: number) {
     if (this.orderItems.some((orderItem) => orderItem.itemId === item.id)) {
+      // TODO: add quantity
       throw new Error("Duplicated item");
     }
     this.orderItems.push(new OrderItem(item.id, item.price, quantity));
-    this.freight += FreightCalculator.calculate(item) * quantity;
   }
 
   addCoupon(coupon: Coupon) {

@@ -12,7 +12,7 @@ export class OrderController {
     readonly getOrdersByCpf: GetOrdersByCpf,
     readonly simulateFreight: SimulateFreight
   ) {
-    httpServer.on(
+    httpServer.register(
       "post",
       "/preview",
       async (query: any, params: any, body: any) => {
@@ -20,14 +20,14 @@ export class OrderController {
         return { total };
       }
     );
-    httpServer.on(
+    httpServer.register(
       "post",
       "/checkout",
       async (query: any, params: any, body: any) => {
         await checkout.execute(body);
       }
     );
-    httpServer.on(
+    httpServer.register(
       "post",
       "/simulateFreight",
       async (query: any, params: any, body: any) => {
@@ -35,7 +35,7 @@ export class OrderController {
         return output;
       }
     );
-    httpServer.on(
+    httpServer.register(
       "get",
       "/orders",
       async (query: any, params: any, body: any) => {

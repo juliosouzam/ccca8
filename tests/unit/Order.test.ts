@@ -65,6 +65,7 @@ test("Não deve criar um pedido com um item com quantidade negativa", () => {
 test("Deve criar um pedido com frete", () => {
   const order = new Order("152.423.120-76");
   order.addItem(new Item(1, "Camiseta", 50, new Dimension(80, 50, 2, 0.5)), 1);
+  order.freight = 10;
   expect(order.getTotal()).toBe(60);
 });
 

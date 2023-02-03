@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+
 import { HttpMethod, HttpServer } from "./HttpServer";
 
 export class ExpressAdapter implements HttpServer {
@@ -8,7 +9,7 @@ export class ExpressAdapter implements HttpServer {
     this.app.use(express.json());
   }
 
-  on(method: HttpMethod, url: string, callback: Function): void {
+  register(method: HttpMethod, url: string, callback: Function): void {
     this.app[method](url, async (request, response) => {
       const output = await callback(
         request.query,
