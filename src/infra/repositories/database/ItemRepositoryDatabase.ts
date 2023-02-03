@@ -4,7 +4,7 @@ import { ItemRepository } from "../../../domain/repositories/ItemRepository";
 import { Connection } from "../../database/Connection";
 
 export class ItemRepositoryDatabase implements ItemRepository {
-  constructor(readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) {}
 
   async getItem(idItem: number): Promise<Item> {
     const itemData = await this.connection.query(

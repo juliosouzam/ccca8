@@ -1,11 +1,19 @@
-import pgp from "pg-promise";
+import pgp, { IDatabase } from "pg-promise";
 
 import { Connection } from "./Connection";
 
 export class PgPromiseAdapter implements Connection {
-  private pgp: any;
-  constructor() {
-    this.pgp = pgp()("postgres://postgres:postgres@localhost:5432/ecommerce");
+  private pgp: IDatabase<any>;
+  constructor(
+    private username: string,
+    private password: string,
+    private port: number,
+    private host: string,
+    private database: string
+  ) {
+    this.pgp = pgp()(
+      `postgres://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}`
+    );
   }
 
   async query<T>(statment: string, params: unknown[] | undefined): Promise<T> {

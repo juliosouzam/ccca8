@@ -3,13 +3,14 @@ import { Cpf } from "./Cpf";
 import { FreightCalculator } from "./FreightCalculator";
 import { Item } from "./Item";
 import { OrderCode } from "./OrderCode";
+import { OrderCoupon } from "./OrderCoupon";
 import { OrderItem } from "./OrderItem";
 
 export class Order {
   cpf: Cpf;
   freight = 0;
+  coupon?: OrderCoupon;
   private orderItems: OrderItem[];
-  private coupon?: Coupon;
   private code: OrderCode;
 
   constructor(
@@ -31,7 +32,8 @@ export class Order {
   }
 
   addCoupon(coupon: Coupon) {
-    this.coupon = coupon;
+    if (coupon.isExpired(this.createdAt)) return;
+    this.coupon = new OrderCoupon(coupon.code, coupon.percent);
   }
 
   getTotal() {
@@ -40,7 +42,7 @@ export class Order {
       return total;
     }, 0);
     if (this.coupon) {
-      total -= this.coupon.calculateDiscount(total, this.createdAt);
+      total -= this.coupon.calculateDiscount(total);
     }
     total += this.freight;
     return total;
