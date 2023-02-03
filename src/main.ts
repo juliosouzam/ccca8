@@ -9,7 +9,6 @@ import { Item } from "./domain/entities/Item";
 import { Zipcode } from "./domain/entities/Zipcode";
 import { OrderController } from "./infra/controllers/OrderController";
 import { MemoryRepositoryFactory } from "./infra/factory/MemoryRepositoryFactory";
-// import { ExpressAdapter } from "./infra/http/ExpressAdapter";
 import { FastifyAdapter } from "./infra/http/FastifyAdapter";
 import { CouponRepositoryMemory } from "./infra/repositories/memory/CouponRepositoryMemory";
 import { ItemRepositoryMemory } from "./infra/repositories/memory/ItemRepositoryMemory";
@@ -33,12 +32,15 @@ zipcodeRepository.save(
 );
 couponRepository.save(new Coupon("VALE20", 20));
 const repositoryFactory = new MemoryRepositoryFactory();
-const preview = new Preview(itemRepository, couponRepository);
+const preview = new Preview(
+  itemRepository,
+  couponRepository,
+  zipcodeRepository
+);
 const checkout = new Checkout(repositoryFactory);
 const getOrdersByCpf = new GetOrdersByCpf(orderRepository);
 const simulateFreight = new SimulateFreight(itemRepository, zipcodeRepository);
 const httpServer = new FastifyAdapter();
-// const httpServer = new ExpressAdapter();
 new OrderController(
   httpServer,
   preview,
