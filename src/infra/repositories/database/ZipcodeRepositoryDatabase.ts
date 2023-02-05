@@ -7,7 +7,16 @@ export class ZipcodeRepositoryDatabase implements ZipcodeRepository {
   constructor(private readonly connection: Connection) {}
 
   async save(zipcode: Zipcode): Promise<void> {
-    throw new Error("Method not implemented.");
+    await this.connection.query(
+      'insert into "zipcode" (code, street, neiboordhood, lat, log) values ($1, $2, $3, $4, $5)',
+      [
+        zipcode.code,
+        zipcode.street,
+        zipcode.neiboordhood,
+        zipcode.coordinate.latitude,
+        zipcode.coordinate.longitude,
+      ]
+    );
   }
 
   async getByCode(code: string): Promise<Zipcode> {

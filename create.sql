@@ -87,7 +87,9 @@ create table coupon (
   expire_date timestamp
 );
 insert into coupon (code, percentage, expire_date)
-values ('VALE20', 20, '2022-12-10T10:00:00');
+values ('VALE20', 20, '2023-03-10T10:00:00');
+insert into coupon (code, percentage, expire_date)
+values ('VALE30', 30, '2022-10-10T10:00:00');
 create table stock_entry (
   id_item integer references item (id_item),
   operation text,

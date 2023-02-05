@@ -7,12 +7,12 @@ export class ItemRepositoryDatabase implements ItemRepository {
   constructor(private readonly connection: Connection) {}
 
   async getItem(idItem: number): Promise<Item> {
-    const itemData = await this.connection.query(
-      'SELECT * FROM "item" WHERE id = $1',
+    const [itemData] = await this.connection.query(
+      'SELECT * FROM "item" WHERE id_item = $1',
       [idItem]
     );
     return new Item(
-      itemData.id,
+      itemData.id_item,
       itemData.description,
       parseFloat(itemData.price),
       new Dimension(
@@ -24,7 +24,17 @@ export class ItemRepositoryDatabase implements ItemRepository {
     );
   }
 
-  save(item: Item): Promise<void> {
-    throw new Error("Method not implemented.");
+  async save(item: Item): Promise<void> {
+    await this.connection.query(
+      'insert into "item" (description, price, width, height, length, weight) values ($1, $2, $3, $4, $5, $6)',
+      [
+        item.description,
+        item.price,
+        item.dimension?.width,
+        item.dimension?.height,
+        item.dimension?.length,
+        item.dimension?.weight,
+      ]
+    );
   }
 }

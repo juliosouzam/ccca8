@@ -10,7 +10,7 @@ export class Order {
   cpf: Cpf;
   freight = 0;
   coupon?: OrderCoupon;
-  private orderItems: OrderItem[];
+  orderItems: OrderItem[];
   private code: OrderCode;
 
   constructor(

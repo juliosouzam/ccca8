@@ -37,4 +37,6 @@ type Input = {
   orderItems: { idItem: number; quantity: number }[];
   coupon?: string;
   createdAt?: Date;
+  from?: string;
+  to?: string;
 };
