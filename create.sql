@@ -93,6 +93,7 @@ values ('VALE30', 30, '2022-10-10T10:00:00');
 create table stock_entry (
   id_item integer references item (id_item),
   operation text,
-  quantity integer
+  quantity integer,
+  date timestamp
 );
 create table order_projection (cpf text, code text, data jsonb);
