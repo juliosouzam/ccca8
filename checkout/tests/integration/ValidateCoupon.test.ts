@@ -1,4 +1,4 @@
-import { ValidateCoupon } from "../../src/application/ValidateCoupon";
+import { ValidateCoupon } from "../../src/application/usecase/ValidateCoupon";
 import { Coupon } from "../../src/domain/entities/Coupon";
 import { CouponRepositoryMemory } from "../../src/infra/repositories/memory/CouponRepositoryMemory";
 

@@ -1,20 +1,25 @@
 import { Checkout } from "../../src/application/usecase/Checkout";
-import { GetOrdersByCpf } from "../../src/application/GetOrdersByCpf";
-import { Coupon } from "../../src/domain/entities/Coupon";
-import { Dimension } from "../../src/domain/entities/Dimension";
 import { Item } from "../../src/domain/entities/Item";
-import { CouponRepository } from "../../src/domain/repositories/CouponRepository";
 import { ItemRepository } from "../../src/domain/repositories/ItemRepository";
 import { OrderRepository } from "../../src/domain/repositories/OrderRepository";
 import { Connection } from "../../src/infra/database/Connection";
 import { PgPromiseAdapter } from "../../src/infra/database/PgPromiseAdapter";
 import { DatabaseRepositoryFactory } from "../../src/infra/factory/DatabaseRepositoryFactory";
 import { MemoryRepositoryFactory } from "../../src/infra/factory/MemoryRepositoryFactory";
+import { GetItemGateway } from "../../src/application/gateway/GetItemGateway";
+import { CalculateFreightGateway } from "../../src/application/gateway/CalculateFreightGateway";
+import { DecrementStockGateway } from "../../src/application/gateway/DecrementStockGateway";
+import { GetItemHttpGateway } from "../../src/infra/gateway/GetItemHttpGateway";
+import { CalculateFreightHttpGateway } from "../../src/infra/gateway/CalculateFreightHttpGateway";
+import { DecrementStockHttpGateway } from "../../src/infra/gateway/DecrementStockHttpGateway";
+import { GetOrdersByCpf } from "../../src/application/usecase/GetOrdersByCpf";
 
 let repositoryFactory: MemoryRepositoryFactory;
 let itemRepository: ItemRepository;
 let orderRepository: OrderRepository;
-let couponRepository: CouponRepository;
+let getItemGateway: GetItemGateway;
+let calculateFreightGateway: CalculateFreightGateway;
+let decrementStockGateway: DecrementStockGateway;
 
 let connection: Connection;
 beforeEach(() => {
@@ -28,7 +33,9 @@ beforeEach(() => {
   repositoryFactory = new DatabaseRepositoryFactory(connection);
   itemRepository = repositoryFactory.createItemRepository();
   orderRepository = repositoryFactory.createOrderRepository();
-  couponRepository = repositoryFactory.createCouponRepository();
+  getItemGateway = new GetItemHttpGateway();
+  calculateFreightGateway = new CalculateFreightHttpGateway();
+  decrementStockGateway = new DecrementStockHttpGateway();
 });
 
 afterEach(async () => {
@@ -37,7 +44,12 @@ afterEach(async () => {
 });
 
 test("Deve fazer um pedido", async () => {
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,
@@ -64,7 +76,12 @@ test("Deve fazer um pedido", async () => {
 });
 
 test("Deve fazer um pedido com desconto", async () => {
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,
@@ -92,7 +109,12 @@ test("Deve fazer um pedido com desconto", async () => {
 });
 
 test("Deve fazer um pedido com desconto expirado", async () => {
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,
@@ -121,7 +143,12 @@ test("Deve fazer um pedido com desconto expirado", async () => {
 });
 
 test("Deve fazer um pedido com desconto não expirado", async () => {
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,
@@ -152,7 +179,12 @@ test("Deve fazer um pedido com desconto não expirado", async () => {
 test("Deve fazer um pedido com frete", async () => {
   await itemRepository.save(new Item(2, "Caneca", 15));
   await itemRepository.save(new Item(3, "Poster", 30));
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,
@@ -180,7 +212,12 @@ test("Deve fazer um pedido com frete", async () => {
 
 test("Deve fazer um pedido com código", async () => {
   await itemRepository.save(new Item(1, "Camiseta", 50));
-  const checkout = new Checkout(repositoryFactory);
+  const checkout = new Checkout(
+    repositoryFactory,
+    getItemGateway,
+    calculateFreightGateway,
+    decrementStockGateway
+  );
   const cpf = "152.423.120-76";
   const input = {
     cpf,

@@ -1,13 +1,12 @@
 import { CalculateFreightGateway } from "../../src/application/gateway/CalculateFreightGateway";
 import { GetItemGateway } from "../../src/application/gateway/GetItemGateway";
-import { Preview } from "../../src/application/Preview";
+import { Preview } from "../../src/application/usecase/Preview";
 import { Coordenate } from "../../src/domain/entities/Coordenate";
 import { Coupon } from "../../src/domain/entities/Coupon";
 import { Dimension } from "../../src/domain/entities/Dimension";
 import { Item } from "../../src/domain/entities/Item";
 import { Zipcode } from "../../src/domain/entities/Zipcode";
 import { CouponRepositoryMemory } from "../../src/infra/repositories/memory/CouponRepositoryMemory";
-import { ItemRepositoryMemory } from "../../src/infra/repositories/memory/ItemRepositoryMemory";
 import { ZipcodeRepositoryMemory } from "../../src/infra/repositories/memory/ZipcodeRepositoryMemory";
 
 let preview: Preview;

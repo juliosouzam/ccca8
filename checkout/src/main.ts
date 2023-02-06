@@ -6,6 +6,7 @@ import { OrderController } from "./infra/controllers/OrderController";
 import { PgPromiseAdapter } from "./infra/database/PgPromiseAdapter";
 import { MemoryRepositoryFactory } from "./infra/factory/MemoryRepositoryFactory";
 import { CalculateFreightHttpGateway } from "./infra/gateway/CalculateFreightHttpGateway";
+import { DecrementStockHttpGateway } from "./infra/gateway/DecrementStockHttpGateway";
 import { GetItemHttpGateway } from "./infra/gateway/GetItemHttpGateway";
 import { FastifyAdapter } from "./infra/http/FastifyAdapter";
 import { CouponRepositoryDatabase } from "./infra/repositories/database/CouponRepositoryDatabase";
@@ -32,7 +33,13 @@ const preview = new Preview(
   getItemGateway,
   calculateFreightGateway
 );
-const checkout = new Checkout(repositoryFactory);
+const decrementStockGateway = new DecrementStockHttpGateway();
+const checkout = new Checkout(
+  repositoryFactory,
+  getItemGateway,
+  calculateFreightGateway,
+  decrementStockGateway
+);
 const getOrdersByCpf = new GetOrdersByCpf(orderRepository);
 const simulateFreight = new SimulateFreight(itemRepository, zipcodeRepository);
 const httpServer = new FastifyAdapter();

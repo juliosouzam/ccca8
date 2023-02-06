@@ -1,4 +1,4 @@
-import { SimulateFreight } from "../../src/application/SimulateFreight";
+import { SimulateFreight } from "../../src/application/usecase/SimulateFreight";
 import { Coordenate } from "../../src/domain/entities/Coordenate";
 import { Dimension } from "../../src/domain/entities/Dimension";
 import { Item } from "../../src/domain/entities/Item";

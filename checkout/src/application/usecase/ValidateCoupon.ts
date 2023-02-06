@@ -1,4 +1,4 @@
-import { CouponRepository } from "../domain/repositories/CouponRepository";
+import { CouponRepository } from "../../domain/repositories/CouponRepository";
 
 export class ValidateCoupon {
   constructor(readonly couponRepository: CouponRepository) {}

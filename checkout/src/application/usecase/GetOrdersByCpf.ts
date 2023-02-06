@@ -1,4 +1,4 @@
-import { OrderRepository } from "../domain/repositories/OrderRepository";
+import { OrderRepository } from "../../domain/repositories/OrderRepository";
 
 export class GetOrdersByCpf {
   constructor(readonly orderRepository: OrderRepository) {}
