@@ -13,6 +13,8 @@ import { GetItemHttpGateway } from "../../src/infra/gateway/GetItemHttpGateway";
 import { CalculateFreightHttpGateway } from "../../src/infra/gateway/CalculateFreightHttpGateway";
 import { DecrementStockHttpGateway } from "../../src/infra/gateway/DecrementStockHttpGateway";
 import { GetOrdersByCpf } from "../../src/application/usecase/GetOrdersByCpf";
+import { Queue } from "../../src/infra/queue/Queue";
+import { RabbitMQAdapter } from "../../src/infra/queue/RabbitMQAdapter";
 
 let repositoryFactory: MemoryRepositoryFactory;
 let itemRepository: ItemRepository;
@@ -20,9 +22,10 @@ let orderRepository: OrderRepository;
 let getItemGateway: GetItemGateway;
 let calculateFreightGateway: CalculateFreightGateway;
 let decrementStockGateway: DecrementStockGateway;
+let queue: Queue;
 
 let connection: Connection;
-beforeEach(() => {
+beforeEach(async () => {
   connection = new PgPromiseAdapter(
     "ecommerce",
     "pOstgr3s@2023",
@@ -36,6 +39,8 @@ beforeEach(() => {
   getItemGateway = new GetItemHttpGateway();
   calculateFreightGateway = new CalculateFreightHttpGateway();
   decrementStockGateway = new DecrementStockHttpGateway();
+  queue = new RabbitMQAdapter();
+  await queue.connect();
 });
 
 afterEach(async () => {
@@ -48,7 +53,8 @@ test("Deve fazer um pedido", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {
@@ -80,7 +86,8 @@ test("Deve fazer um pedido com desconto", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {
@@ -113,7 +120,8 @@ test("Deve fazer um pedido com desconto expirado", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {
@@ -147,7 +155,8 @@ test("Deve fazer um pedido com desconto não expirado", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {
@@ -183,7 +192,8 @@ test("Deve fazer um pedido com frete", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {
@@ -216,7 +226,8 @@ test("Deve fazer um pedido com código", async () => {
     repositoryFactory,
     getItemGateway,
     calculateFreightGateway,
-    decrementStockGateway
+    decrementStockGateway,
+    queue
   );
   const cpf = "152.423.120-76";
   const input = {

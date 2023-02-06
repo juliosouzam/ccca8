@@ -1,7 +1,9 @@
 import { Order } from "../../domain/entities/Order";
+import { OrderPlaced } from "../../domain/event/OrderPlaced";
 import { RepositoryFactory } from "../../domain/factory/RepositoryFactory";
 import { CouponRepository } from "../../domain/repositories/CouponRepository";
 import { OrderRepository } from "../../domain/repositories/OrderRepository";
+import { Queue } from "../../infra/queue/Queue";
 import { CalculateFreightGateway } from "../gateway/CalculateFreightGateway";
 import { DecrementStockGateway } from "../gateway/DecrementStockGateway";
 import { GetItemGateway } from "../gateway/GetItemGateway";
@@ -14,7 +16,8 @@ export class Checkout {
     private repositoryFactory: RepositoryFactory,
     readonly getItemGateway: GetItemGateway,
     readonly calculateFreightGateway: CalculateFreightGateway,
-    readonly decrementStockGateway: DecrementStockGateway
+    readonly decrementStockGateway: DecrementStockGateway,
+    readonly queue: Queue
   ) {
     this.couponRepository = this.repositoryFactory.createCouponRepository();
     this.orderRepository = this.repositoryFactory.createOrderRepository();
@@ -24,17 +27,12 @@ export class Checkout {
     const nextSequence = (await this.orderRepository.count()) + 1;
     const order = new Order(input.cpf, input.createdAt, nextSequence);
     const orderItems = [];
-    const decrementOrderItems = [];
     for (const orderItem of input.orderItems) {
       const item = await this.getItemGateway.getItem(orderItem.idItem);
       order.addItem(item, orderItem.quantity);
       orderItems.push({
         volume: item.getVolume(),
         density: item.getDensity(),
-        quantity: orderItem.quantity,
-      });
-      decrementOrderItems.push({
-        idItem: orderItem.idItem,
         quantity: orderItem.quantity,
       });
     }
@@ -48,7 +46,7 @@ export class Checkout {
       order.addCoupon(coupon);
     }
     await this.orderRepository.save(order);
-    await this.decrementStockGateway.execute(decrementOrderItems);
+    await this.queue.publish("orderPlaced", new OrderPlaced(order));
   }
 }
 

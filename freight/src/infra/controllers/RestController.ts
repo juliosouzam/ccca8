@@ -1,7 +1,7 @@
 import { CalculateFreight } from "../../application/usecase/CalculateFreight";
 import { HttpServer } from "../http/HttpServer";
 
-export class Controller {
+export class RestController {
   constructor(
     readonly httpServer: HttpServer,
     readonly calculateFreight: CalculateFreight

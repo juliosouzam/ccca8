@@ -3,7 +3,7 @@ import { DecrementStock } from "../../application/usecase/DecrementStock";
 import { GetStock } from "../../application/usecase/GetStock";
 import { HttpServer } from "../http/HttpServer";
 
-export class Controller {
+export class RestController {
   constructor(
     readonly httpServer: HttpServer,
     readonly decrementStock: DecrementStock,

@@ -1,5 +1,5 @@
 import { CalculateFreight } from "./application/usecase/CalculateFreight";
-import { Controller } from "./infra/controllers/Controller";
+import { RestController } from "./infra/controllers/RestController";
 import { PgPromiseAdapter } from "./infra/database/PgPromiseAdapter";
 import { FastifyAdapter } from "./infra/http/FastifyAdapter";
 import { ZipcodeRepositoryDatabase } from "./infra/repositories/database/ZipcodeRepositoryDatabase";
@@ -13,5 +13,5 @@ const connection = new PgPromiseAdapter(
 const zipcodeRepository = new ZipcodeRepositoryDatabase(connection);
 const calculateFreight = new CalculateFreight(zipcodeRepository);
 const httpServer = new FastifyAdapter();
-new Controller(httpServer, calculateFreight);
+new RestController(httpServer, calculateFreight);
 httpServer.listen(3001);
